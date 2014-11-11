@@ -1,11 +1,19 @@
 #!/bin/sh
 
-CD_ROOT=$(echo ~)
+PR_ROOT_FILE=(".git" ".prrt")
+for i in `seq 1 ${#PR_ROOT_FILE[@]}`
+do
+    PR_MATCHER="${PR_MATCHER} -name ${PR_ROOT_FILE[${i}-1]}"
+    if [ "${i}" != ${#PR_ROOT_FILE[@]} ]; then
+        PR_MATCHER="${PR_MATCHER} -o"
+    fi
+done
 
+CD_ROOT=$(echo ~)
 while [ "${CD_ROOT}" != `pwd` ]
 do
     cd ..
-    PR_RESULT=$(find . -name ".git" -maxdepth 1 )
+    PR_RESULT=$(find . \( ${PR_MATCHER} \) -maxdepth 1 )
     if [ "${PR_RESULT}" != "" ]; then
         echo `pwd`
         break
