@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CD_ROOT=$(echo ~)
+
+while [ "${CD_ROOT}" != `pwd` ]
+do
+    cd ..
+    PR_RESULT=$(find . -name ".git" -maxdepth 1 )
+    if [ "${PR_RESULT}" != "" ]; then
+        echo `pwd`
+        break
+    fi
+done
