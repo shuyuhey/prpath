@@ -10,7 +10,7 @@ do
 done
 
 CD_ROOT=$(echo ~)
-while [ "${CD_ROOT}" != `pwd` ]
+while [ "${CD_ROOT}" != `pwd` ] && [ `pwd | grep "${CD_ROOT}"` ]
 do
     cd ..
     PR_RESULT=$(find . \( ${PR_MATCHER} \) -maxdepth 1 )
